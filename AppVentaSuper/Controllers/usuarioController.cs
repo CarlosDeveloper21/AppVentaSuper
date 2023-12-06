@@ -48,7 +48,7 @@ namespace AppVentaSuper.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idusuario,idrol,nombre,tipo_documento,num_documento,direccion,telefono,correo,clave,fecha,estado")] usuario usuario)
+        public ActionResult Create([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado")] usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace AppVentaSuper.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idusuario,idrol,nombre,tipo_documento,num_documento,direccion,telefono,correo,clave,fecha,estado")] usuario usuario)
+        public ActionResult Edit([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado")] usuario usuario)
         {
             if (ModelState.IsValid)
             {
