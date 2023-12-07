@@ -10,18 +10,18 @@ using AppVentaSuper;
 
 namespace AppVentaSuper.Controllers
 {
-    public class usuarioController : Controller
+    public class usuariosController : Controller
     {
         private SuperEntities db = new SuperEntities();
 
-        // GET: usuario
+        // GET: usuarios
         public ActionResult Index()
         {
             var usuario = db.usuario.Include(u => u.rol);
             return View(usuario.ToList());
         }
 
-        // GET: usuario/Details/5
+        // GET: usuarios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,19 +36,19 @@ namespace AppVentaSuper.Controllers
             return View(usuario);
         }
 
-        // GET: usuario/Create
+        // GET: usuarios/Create
         public ActionResult Create()
         {
             ViewBag.idrol = new SelectList(db.rol, "idrol", "nombre");
             return View();
         }
 
-        // POST: usuario/Create
+        // POST: usuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado")] usuario usuario)
+        public ActionResult Create([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado,nombre")] usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace AppVentaSuper.Controllers
             return View(usuario);
         }
 
-        // GET: usuario/Edit/5
+        // GET: usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,12 +77,12 @@ namespace AppVentaSuper.Controllers
             return View(usuario);
         }
 
-        // POST: usuario/Edit/5
+        // POST: usuarios/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado")] usuario usuario)
+        public ActionResult Edit([Bind(Include = "idusuario,idrol,correo,clave,fecha,estado,nombre")] usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace AppVentaSuper.Controllers
             return View(usuario);
         }
 
-        // GET: usuario/Delete/5
+        // GET: usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,7 +109,7 @@ namespace AppVentaSuper.Controllers
             return View(usuario);
         }
 
-        // POST: usuario/Delete/5
+        // POST: usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

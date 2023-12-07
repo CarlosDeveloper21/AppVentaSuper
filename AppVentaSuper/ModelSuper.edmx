@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SuperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SuperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="idcategoria" />
@@ -103,15 +103,11 @@
           </Key>
           <Property Name="idusuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idrol" Type="int" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="tipo_documento" Type="varchar" MaxLength="20" />
-          <Property Name="num_documento" Type="varchar" MaxLength="20" />
-          <Property Name="direccion" Type="varchar" MaxLength="70" />
-          <Property Name="telefono" Type="varchar" MaxLength="20" />
           <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="clave" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="estado" Type="bit" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="venta">
           <Key>
@@ -252,27 +248,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_regisrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="correo" Type="varchar" Mode="In" />
-          <Parameter Name="clave" Type="varchar" Mode="In" />
-          <Parameter Name="idrol" Type="int" Mode="In" />
-          <Parameter Name="nombre" Type="varchar" Mode="In" />
-          <Parameter Name="tipo_documento" Type="varchar" Mode="In" />
-          <Parameter Name="num_documento" Type="varchar" Mode="In" />
-          <Parameter Name="direccion" Type="varchar" Mode="In" />
-          <Parameter Name="telefono" Type="varchar" Mode="In" />
-          <Parameter Name="registrado" Type="bit" Mode="InOut" />
-          <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
-        </Function>
         <Function Name="sp_validarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="correo" Type="varchar" Mode="In" />
           <Parameter Name="clave" Type="varchar" Mode="In" />
           <Parameter Name="idrol" Type="int" Mode="In" />
-          <Parameter Name="nombre" Type="varchar" Mode="In" />
-          <Parameter Name="tipo_documento" Type="varchar" Mode="In" />
-          <Parameter Name="num_documento" Type="varchar" Mode="In" />
-          <Parameter Name="direccion" Type="varchar" Mode="In" />
-          <Parameter Name="telefono" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="SuperModelStoreContainer">
           <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
@@ -326,8 +305,7 @@
             <End Role="venta" EntitySet="venta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuperModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -369,8 +347,8 @@
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="proveedor" Relationship="Self.FK__compra__idprovee__6383C8BA" FromRole="compra" ToRole="proveedor" />
-          <NavigationProperty Name="usuario" Relationship="Self.FK__compra__idusuari__6477ECF3" FromRole="compra" ToRole="usuario" />
           <NavigationProperty Name="detalle_compra" Relationship="Self.FK__detalle_c__idcom__01142BA1" FromRole="compra" ToRole="detalle_compra" />
+          <NavigationProperty Name="usuario" Relationship="SuperModel.FK__compra__idusuari__6477ECF3" FromRole="compra" ToRole="usuario" />
         </EntityType>
         <EntityType Name="detalle_compra">
           <Key>
@@ -435,26 +413,7 @@
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="Boolean" />
-          <NavigationProperty Name="usuario" Relationship="Self.FK__usuario__idrol__534D60F1" FromRole="rol" ToRole="usuario" />
-        </EntityType>
-        <EntityType Name="usuario">
-          <Key>
-            <PropertyRef Name="idusuario" />
-          </Key>
-          <Property Name="idusuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idrol" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="tipo_documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="num_documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="clave" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="estado" Type="Boolean" />
-          <NavigationProperty Name="compra" Relationship="Self.FK__compra__idusuari__6477ECF3" FromRole="usuario" ToRole="compra" />
-          <NavigationProperty Name="rol" Relationship="Self.FK__usuario__idrol__534D60F1" FromRole="usuario" ToRole="rol" />
-          <NavigationProperty Name="venta" Relationship="Self.FK__venta__idusuario__787EE5A0" FromRole="usuario" ToRole="venta" />
+          <NavigationProperty Name="usuario" Relationship="SuperModel.FK__usuario__idrol__534D60F1" FromRole="rol" ToRole="usuario" />
         </EntityType>
         <EntityType Name="venta">
           <Key>
@@ -472,7 +431,7 @@
           <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="Self.FK__venta__idcliente__778AC167" FromRole="venta" ToRole="cliente" />
           <NavigationProperty Name="detalle_venta" Relationship="Self.FK__detalle_v__idven__7B5B524B" FromRole="venta" ToRole="detalle_venta" />
-          <NavigationProperty Name="usuario" Relationship="Self.FK__venta__idusuario__787EE5A0" FromRole="venta" ToRole="usuario" />
+          <NavigationProperty Name="usuario" Relationship="SuperModel.FK__venta__idusuario__787EE5A0" FromRole="venta" ToRole="usuario" />
         </EntityType>
         <Association Name="FK__producto__idcate__6D0D32F4">
           <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
@@ -507,18 +466,6 @@
             </Principal>
             <Dependent Role="compra">
               <PropertyRef Name="idproveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__compra__idusuari__6477ECF3">
-          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
-          <End Role="compra" Type="Self.compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuario">
-              <PropertyRef Name="idusuario" />
-            </Principal>
-            <Dependent Role="compra">
-              <PropertyRef Name="idusuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -574,30 +521,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__usuario__idrol__534D60F1">
-          <End Role="rol" Type="Self.rol" Multiplicity="1" />
-          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rol">
-              <PropertyRef Name="idrol" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="idrol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__venta__idusuario__787EE5A0">
-          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
-          <End Role="venta" Type="Self.venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuario">
-              <PropertyRef Name="idusuario" />
-            </Principal>
-            <Dependent Role="venta">
-              <PropertyRef Name="idusuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SuperEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="categoria" EntityType="Self.categoria" />
           <EntitySet Name="cliente" EntityType="Self.cliente" />
@@ -607,7 +530,6 @@
           <EntitySet Name="producto" EntityType="Self.producto" />
           <EntitySet Name="proveedor" EntityType="Self.proveedor" />
           <EntitySet Name="rol" EntityType="Self.rol" />
-          <EntitySet Name="usuario" EntityType="Self.usuario" />
           <EntitySet Name="venta" EntityType="Self.venta" />
           <AssociationSet Name="FK__producto__idcate__6D0D32F4" Association="Self.FK__producto__idcate__6D0D32F4">
             <End Role="categoria" EntitySet="categoria" />
@@ -619,10 +541,6 @@
           </AssociationSet>
           <AssociationSet Name="FK__compra__idprovee__6383C8BA" Association="Self.FK__compra__idprovee__6383C8BA">
             <End Role="proveedor" EntitySet="proveedor" />
-            <End Role="compra" EntitySet="compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__compra__idusuari__6477ECF3" Association="Self.FK__compra__idusuari__6477ECF3">
-            <End Role="usuario" EntitySet="usuario" />
             <End Role="compra" EntitySet="compra" />
           </AssociationSet>
           <AssociationSet Name="FK__detalle_c__idcom__01142BA1" Association="Self.FK__detalle_c__idcom__01142BA1">
@@ -641,14 +559,6 @@
             <End Role="venta" EntitySet="venta" />
             <End Role="detalle_venta" EntitySet="detalle_venta" />
           </AssociationSet>
-          <AssociationSet Name="FK__usuario__idrol__534D60F1" Association="Self.FK__usuario__idrol__534D60F1">
-            <End Role="rol" EntitySet="rol" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK__venta__idusuario__787EE5A0" Association="Self.FK__venta__idusuario__787EE5A0">
-            <End Role="usuario" EntitySet="usuario" />
-            <End Role="venta" EntitySet="venta" />
-          </AssociationSet>
           <FunctionImport Name="sp_regisrarUsuario">
             <Parameter Name="correo" Mode="In" Type="String" />
             <Parameter Name="clave" Mode="In" Type="String" />
@@ -665,13 +575,72 @@
             <Parameter Name="correo" Mode="In" Type="String" />
             <Parameter Name="clave" Mode="In" Type="String" />
             <Parameter Name="idrol" Mode="In" Type="Int32" />
-            <Parameter Name="nombre" Mode="In" Type="String" />
-            <Parameter Name="tipo_documento" Mode="In" Type="String" />
-            <Parameter Name="num_documento" Mode="In" Type="String" />
-            <Parameter Name="direccion" Mode="In" Type="String" />
-            <Parameter Name="telefono" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="usuario" EntityType="SuperModel.usuario" />
+          <AssociationSet Name="FK__compra__idusuari__6477ECF3" Association="SuperModel.FK__compra__idusuari__6477ECF3">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="compra" EntitySet="compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario__idrol__534D60F1" Association="SuperModel.FK__usuario__idrol__534D60F1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__idusuario__787EE5A0" Association="SuperModel.FK__venta__idusuario__787EE5A0">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idusuario" />
+          </Key>
+          <Property Name="idusuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idrol" Type="Int32" Nullable="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="compra" Relationship="SuperModel.FK__compra__idusuari__6477ECF3" FromRole="usuario" ToRole="compra" />
+          <NavigationProperty Name="rol" Relationship="SuperModel.FK__usuario__idrol__534D60F1" FromRole="usuario" ToRole="rol" />
+          <NavigationProperty Name="venta" Relationship="SuperModel.FK__venta__idusuario__787EE5A0" FromRole="usuario" ToRole="venta" />
+        </EntityType>
+        <Association Name="FK__compra__idusuari__6477ECF3">
+          <End Type="SuperModel.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="SuperModel.compra" Role="compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="compra">
+              <PropertyRef Name="idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario__idrol__534D60F1">
+          <End Type="SuperModel.rol" Role="rol" Multiplicity="1" />
+          <End Type="SuperModel.usuario" Role="usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idrol" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__idusuario__787EE5A0">
+          <End Type="SuperModel.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="SuperModel.venta" Role="venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idusuario" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -778,23 +747,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuario">
-            <EntityTypeMapping TypeName="SuperModel.usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
-                <ScalarProperty Name="idrol" ColumnName="idrol" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
-                <ScalarProperty Name="num_documento" ColumnName="num_documento" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="clave" ColumnName="clave" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="venta">
             <EntityTypeMapping TypeName="SuperModel.venta">
               <MappingFragment StoreEntitySet="venta">
@@ -811,8 +763,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_regisrarUsuario" FunctionName="SuperModel.Store.sp_regisrarUsuario" />
           <FunctionImportMapping FunctionImportName="sp_validarUsuario" FunctionName="SuperModel.Store.sp_validarUsuario" />
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="SuperModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="idrol" ColumnName="idrol" />
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

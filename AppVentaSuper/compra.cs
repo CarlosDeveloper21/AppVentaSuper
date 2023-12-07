@@ -32,8 +32,8 @@ namespace AppVentaSuper
         public string estado { get; set; }
     
         public virtual proveedor proveedor { get; set; }
-        public virtual usuario usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalle_compra> detalle_compra { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }

@@ -35,8 +35,8 @@ namespace AppVentaSuper
         public virtual DbSet<producto> producto { get; set; }
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<rol> rol { get; set; }
-        public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<venta> venta { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
     
         public virtual int sp_regisrarUsuario(string correo, string clave, Nullable<int> idrol, string nombre, string tipo_documento, string num_documento, string direccion, string telefono, ObjectParameter registrado, ObjectParameter mensaje)
         {
@@ -75,7 +75,7 @@ namespace AppVentaSuper
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_regisrarUsuario", correoParameter, claveParameter, idrolParameter, nombreParameter, tipo_documentoParameter, num_documentoParameter, direccionParameter, telefonoParameter, registrado, mensaje);
         }
     
-        public virtual ObjectResult<Nullable<int>> sp_validarUsuario(string correo, string clave, Nullable<int> idrol, string nombre, string tipo_documento, string num_documento, string direccion, string telefono)
+        public virtual ObjectResult<Nullable<int>> sp_validarUsuario(string correo, string clave, Nullable<int> idrol)
         {
             var correoParameter = correo != null ?
                 new ObjectParameter("correo", correo) :
@@ -89,27 +89,7 @@ namespace AppVentaSuper
                 new ObjectParameter("idrol", idrol) :
                 new ObjectParameter("idrol", typeof(int));
     
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("nombre", nombre) :
-                new ObjectParameter("nombre", typeof(string));
-    
-            var tipo_documentoParameter = tipo_documento != null ?
-                new ObjectParameter("tipo_documento", tipo_documento) :
-                new ObjectParameter("tipo_documento", typeof(string));
-    
-            var num_documentoParameter = num_documento != null ?
-                new ObjectParameter("num_documento", num_documento) :
-                new ObjectParameter("num_documento", typeof(string));
-    
-            var direccionParameter = direccion != null ?
-                new ObjectParameter("direccion", direccion) :
-                new ObjectParameter("direccion", typeof(string));
-    
-            var telefonoParameter = telefono != null ?
-                new ObjectParameter("telefono", telefono) :
-                new ObjectParameter("telefono", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_validarUsuario", correoParameter, claveParameter, idrolParameter, nombreParameter, tipo_documentoParameter, num_documentoParameter, direccionParameter, telefonoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_validarUsuario", correoParameter, claveParameter, idrolParameter);
         }
     }
 }

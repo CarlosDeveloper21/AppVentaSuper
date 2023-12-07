@@ -13,19 +13,19 @@
         <EntityTypeShape EntityType="SuperModel.producto" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SuperModel.proveedor" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="SuperModel.rol" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuperModel.usuario" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SuperModel.venta" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="SuperModel.FK__producto__idcate__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__venta__idcliente__778AC167" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__compra__idprovee__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperModel.FK__compra__idusuari__6477ECF3" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__detalle_c__idcom__01142BA1" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__detalle_c__idpro__02084FDA" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__detalle_v__idpro__7C4F7684" ManuallyRouted="false" />
         <AssociationConnector Association="SuperModel.FK__detalle_v__idven__7B5B524B" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperModel.FK__usuario__idrol__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperModel.FK__venta__idusuario__787EE5A0" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="SuperModel.usuario" Width="1.5" PointX="3" PointY="5.875" />
+        <AssociationConnector Association="SuperModel.FK__compra__idusuari__6477ECF3" />
+        <AssociationConnector Association="SuperModel.FK__usuario__idrol__534D60F1" />
+        <AssociationConnector Association="SuperModel.FK__venta__idusuario__787EE5A0" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
