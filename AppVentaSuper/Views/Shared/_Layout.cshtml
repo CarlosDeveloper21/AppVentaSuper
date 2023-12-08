@@ -25,10 +25,21 @@
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Mantenimiento", "Index", "categorias") </li>
-                    <li>@Html.ActionLink("Contacto", "Index", "producto") </li>
 
+                    <li>@Html.ActionLink("Mantenimiento", "Index", "Home")
+                        <ul class="nav">
+                            <li class="dropdown-item" >@Html.ActionLink("categoria", "Index", "categorias") </liclass="dropdown-item">
+                            <li class="dropdown-item" >@Html.ActionLink("producto", "Index", "producto") </li>
+                            <li>@Html.ActionLink("venta", "Index", "ventas") </li>
+                            <li>@Html.ActionLink("compra", "Index", "compra") </li>
+                            <li>@Html.ActionLink("usuario", "Index", "usuarios") </li>
+                            <li>@Html.ActionLink("cliente", "Index", "cliente") </li>
+                            <li>@Html.ActionLink("rol", "Index", "rols") </li>
+                            <li>@Html.ActionLink("proveedor", "Index", "proveedor") </li>
+                        </ul>
+                    
                     </li>
+                                       
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

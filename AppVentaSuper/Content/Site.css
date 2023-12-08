@@ -22,3 +22,37 @@ select,
 textarea {
     max-width: 280px;
 }
+ul {
+    list-style: none;
+}
+
+.nav {
+    display: flex;
+}
+
+    .nav li a {
+        /*background-color: lightgreen;*/
+        color: #000;
+        text-decoration: none;
+        padding: 15px 15px;
+        display: flex;
+        align-items: center;
+    }
+
+        .nav li a:hover {
+            background-color: rgb(221, 228, 26);
+        }
+
+    .nav > li {
+        float: left;
+    }
+
+    .nav li ul {
+        display: none;
+        position: absolute !important;
+        min-width: 140px;
+    }
+
+    .nav li:hover > ul {
+        display: block;
+    }
